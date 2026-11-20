@@ -34,6 +34,8 @@ try:
 except ImportError:
     GOOGLE_AVAILABLE = False
 
+#Only Anthropic, OpenAI and Google imports are needed.
+
 try:
     from together import AsyncTogether
     TOGETHER_AVAILABLE = True
@@ -45,131 +47,23 @@ class MessageRole(str, Enum):
     USER = "user"
     ASSISTANT = "assistant"
 
+#Model calls from other developers can remain to prevent errors later on.
+
 # Model provider mappings
 ANTHROPIC_MODELS = {
-    "claude-3-opus-20240229",
-    "claude-3-sonnet-20240229", 
-    "claude-3-haiku-20240307",
-    "claude-3-5-sonnet-20241022",
-    "claude-3-5-sonnet-latest",
-    "claude-3-5-haiku-20241022",
-    "claude-3-5-haiku-latest",
-    "claude-3-7-sonnet-20250219",
-    "claude-sonnet-4-20250514",
-    "claude-opus-4-20250514"
+    "claude-fable-5-2"
 }
 
 OPENAI_MODELS = {
-    "gpt-3.5-turbo",
-    "gpt-3.5-turbo-0125", 
-    "gpt-4",
-    "gpt-4-0125-preview",
-    "gpt-4-turbo",
-    "gpt-4-turbo-2024-04-09",
-    "gpt-4o",
-    "gpt-4o-2024-05-13",
-    "gpt-4o-2024-08-06",
-    "gpt-4o-2024-11-20",
-    "gpt-4o-mini",
-    "gpt-4o-mini-2024-07-18",
-    "gpt-4.1",
-    "o3",
-    "o4-mini-2025-04-16"
+    "gpt-6.2-astra"
 }
 
 GEMINI_MODELS = {
-    # Gemini 1.5 models
-    "gemini-1.5-pro",
-    "gemini-1.5-pro-latest",
-    "gemini-1.5-flash",
-    "gemini-1.5-flash-latest",
-    "gemini-1.5-flash-8b",
-    
-    # Gemini 2.0 models
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-exp",
-    "gemini-2.0-flash-lite",
-    "gemini-2.0-flash-preview-image-generation",
-    "gemini-2.0-flash-live-001",
-    
-    # Gemini 2.5 models
-    "gemini-2.5-flash-preview-05-20",
-    "gemini-2.5-flash-preview-native-audio-dialog",
-    "gemini-2.5-flash-exp-native-audio-thinking-dialog",
-    "gemini-2.5-flash-preview-tts",
-    "gemini-2.5-pro-preview-05-06",
-    "gemini-2.5-pro-preview-tts"
+    # Tested gemini model
+    "gemini-4-carbon"
 }
 
 # Together API models
-TOGETHER_MODELS = {
-    "deepseek-ai/DeepSeek-R1"
-}
-
-# OpenRouter API models (includes former Together models)
-OPENROUTER_MODELS = {
-    # Original OpenRouter models
-    "x-ai/grok-3-beta",
-    "mistralai/mistral-large-2411",
-    "mistral/ministral-8b",
-    
-    # Gemini models via OpenRouter
-    "google/gemini-2.0-flash-exp",
-    "google/gemini-2.0-flash",
-    "google/gemini-1.5-pro",
-    "google/gemini-1.5-flash",
-    "google/gemini-1.5-flash-8b",
-    "google/gemini-2.5-pro-preview",
-    "google/gemini-2.5-pro-experimental",
-    "google/gemini-2.5-flash-preview-05-20",
-    "google/gemini-2.5-flash-preview-05-20:thinking",
-    "google/gemini-2.5-flash-preview-04-17",
-    "google/gemini-2.5-flash-preview-04-17:thinking",
-    
-    # Migrated Llama models (from Together)
-    "meta-llama/llama-3.1-8b-instruct",
-    "meta-llama/llama-3.1-70b-instruct",
-    "meta-llama/llama-3.1-405b-instruct",
-    "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",  # Together's special version
-    "meta-llama/llama-3.3-70b-instruct",
-    
-    # Additional Llama models (free tier)
-    "meta-llama/llama-3.3-8b-instruct:free",
-    "meta-llama/llama-3.3-70b-instruct:free",
-    "meta-llama/llama-4-maverick:free",
-    "meta-llama/llama-4-maverick",
-    "meta-llama/llama-4-scout:free",
-    
-    # Migrated Qwen models (from Together)
-    "qwen/qwen-2.5-72b-instruct",
-    "qwen/qwen-2.5-coder-32b-instruct",
-    "qwen/qwq-32b-preview",
-    
-    # Additional Qwen models (free tier)
-    "qwen/qwen3-32b:free",
-    "qwen/qwen3-14b:free",
-    "qwen/qwen3-8b:free",
-    "qwen/qwen3-235b-a22b:free",
-    "qwen/qwen3-235b-a22b",
-    
-    # DeepSeek models on OpenRouter
-    "deepseek/deepseek-r1",
-    "deepseek/deepseek-r1-zero",
-    "deepseek/deepseek-r1-zero:free",
-    "deepseek/deepseek-v3",
-    "deepseek/deepseek-v3-base",
-    "deepseek/deepseek-v3-base:free",
-    "deepseek/deepseek-v3-0324",
-    "deepseek/deepseek-v2.5",
-    "deepseek/deepseek-coder-v2",
-    "deepseek/deepseek-prover-v2",
-    "deepseek/deepseek-r1-distill-llama-8b",
-    "deepseek/deepseek-r1-distill-llama-70b",
-    "deepseek/deepseek-r1-distill-qwen-1.5b",
-    "deepseek/deepseek-r1-distill-qwen-14b",
-    "deepseek/deepseek-r1-distill-qwen-32b",
-    "deepseek/deepseek-r1-0528",
-}
 
 # Placeholder for future providers
 DEEPSEEK_MODELS = set()  # DeepSeek now via Together
@@ -256,8 +150,8 @@ class ModelClient:
         if GOOGLE_AVAILABLE and os.getenv("GOOGLE_API_KEY"):
             genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
         
-        if TOGETHER_AVAILABLE and os.getenv("TOGETHER_API_KEY"):
-            self.together_client = AsyncTogether(api_key=os.getenv("TOGETHER_API_KEY"))
+        #if TOGETHER_AVAILABLE and os.getenv("TOGETHER_API_KEY"):
+        #   self.together_client = AsyncTogether(api_key=os.getenv("TOGETHER_API_KEY"))
         
         if OPENAI_AVAILABLE and os.getenv("OPENROUTER_API_KEY"):
             self.openrouter_client = AsyncOpenAI(
